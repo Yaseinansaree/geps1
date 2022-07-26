@@ -13,7 +13,6 @@ bot_guid=("u0DQXtB0dec2771cdd3897c499a8f24b")
 while(1):
 	try:
 		for chat in bot.getChatsUpdate():
-			if chat['abs_object']['type']=='User'or chat['abs_object']['type']=='Group':
 				if 'SendMessages' in chat['access'] and chat['last_message']['type']=='Text':
 					msg:str=chat['last_message']['text']
 					if not chat['object_guid']+chat['last_message']['message_id']in answered:
