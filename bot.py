@@ -7,7 +7,7 @@ def answer(bot,chat,msg,):
 		bot.sendMessage(chat['object_guid'], get('http://api.hajiapi.tk/sokhan?text='+msg).text, message_id=chat['last_message']['message_id'])
 	except:pass
 	
-bot=Bot(auth="ckrpzahhcuacqssfhnrgtxevgsyedlzy",)
+bot=Bot(auth="ufmzlqqnvusrycuxbdejfgxwlrgwbond",)
 answered=[]
 bot_guid=("u0DQXtB0dec2771cdd3897c499a8f24b")
 while(1):
