@@ -1,38 +1,58 @@
-from rubpy import Bot
 from requests import get
-from _thread import start_new_thread
+from re import findall
+import os
+import glob
+from rubiran.client import rubiran
+import requests
+from gtts import gTTS
+from mutagen.mp3 import MP3
+import json
+from datetime import datetime
+from json import loads , dumps
 import time
+from time import sleep
+import random
+import urllib.request
+import io
+from random import choice,randint
+from PIL import Image
+from colorama import Fore
 
-def answer(bot,chat,msg,):
-	try:
-		bot.sendMessage(chat['object_guid'], get('http://api.hajiapi.tk/sokhan?text='+msg).text, message_id=chat['last_message']['message_id'])
-	except:pass
-	
-bot=Bot(auth="brzuywmhheqoltyvebrmqrthfxmtkzdz",)
-answered=[]
-bot_guid=("u0Bv9Lp07dd06c9dc066f08ab2f2ed07")
-def block(bit,chat,text):
-	while True:
-		time.sleep(.1)
-		try:
-			bot.block(chat['object_guid'])
-			break
-		except:
-			continue
-while(1):
-	try:
-		for chat in bot.getChatsUpdate():
-			if chat['abs_object']['type']=='User'or chat['abs_object']['type']=='Group':
-				if 'SendMessages' in chat['access'] and chat['last_message']['type']=='Text':
-					msg:str=chat['last_message']['text']
-					if not chat['object_guid']+chat['last_message']['message_id']in answered:
-						if not chat['last_message']['author_object_guid']==bot_guid:
-							if msg:
-								start_new_thread(answer,(bot,chat,msg,))
-							answered.append(chat['object_guid']+chat['last_message']['message_id'])
-							text = text.strip()
-			if text == ("k"):
-				Thread(target=block,args=(bit, chat, text)).start()
-				list_message_seened.append(m_id)
-				break
-	except:pass
+
+
+bot = rubiran("brzuywmhheqoltyvebrmqrthfxmtkzdz")
+
+
+answered, sleeped, retries,forward_Channell, answer,lock_fosh,st,list_gap,sttab2,st_tabl,deletergap = [] , False , {} , True , [] , False , False , [] , False , False , True
+alerts, blacklist, stars, alert_stickers, alert_Gif, lock_GIF,lock_Sticker,star_sinza,sin_time,tab_time = [] , [] , [] , [] , [] , False , False , False , False , False
+
+
+
+res = bot.getLinkFromAppUrl('https://rubika.ir/yasein_161/CAIFFBAGIDEEFAC')
+m = res.get('object_guid')
+b = res.get('message_id')
+guud = bot.joinChannelByLink('https://rubika.ir/joinc/BCEBDBGG0OVJIBFRYBVQOHKHQRSVVENK').get('channel_guid')
+sum = 0
+while True:
+    try:
+        last_chat = bot.getChannelInfo(guud).get('data').get('chat').get('last_message_id')
+        messages_channell = bot.getMessages(guud,last_chat)
+        for chat in messages_channell:
+            chat = chat["text"]
+            link_Group = findall(r"https://rubika.ir/joing/\w{32}", chat)
+            for links in link_Group:
+                list_gap.append(links)
+                randomli = choice(list_gap)
+                tabeligh = bot.joinGroup(randomli)
+                tabrligh = tabeligh['data']['group']['group_guid']
+                info = tabeligh['data']['group']['group_title']
+                momber = tabeligh['data']['group']['count_members']
+                sum += 1
+                bot.forwardMessages(m,[b],tabrligh)
+                res1 = bot.getMessagesInfo(m, [b])
+                for n in res1:
+                    sen = n['count_seen']
+                    print(f"link gap : {randomli} \n title gap : {info} \n member : {momber} \n foroward : {sum} \n seen :{sen}")
+                    print("--------------------------------------------")
+                    bot.leaveGroup(tabrligh)
+    except:pass
