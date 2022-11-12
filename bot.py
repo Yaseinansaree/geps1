@@ -20,7 +20,7 @@ from colorama import Fore
 
 
 
-bot = rubiran("brzuywmhheqoltyvebrmqrthfxmtkzdz")
+bot = rubiran("zbvuqgzqnttxikbkkzpsqlqfbuktnyty")
 
 
 answered, sleeped, retries,forward_Channell, answer,lock_fosh,st,list_gap,sttab2,st_tabl,deletergap = [] , False , {} , True , [] , False , False , [] , False , False , True
